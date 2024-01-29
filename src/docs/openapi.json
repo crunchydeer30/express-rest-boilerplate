@@ -1,0 +1,351 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "REST Api Documentation",
+    "description": "REST Api Documentation",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Posts",
+      "description": "Posts related end-points"
+    }
+  ],
+  "paths": {
+    "/api/posts/": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Posts",
+        "description": "<p>This endpoint allows the client to retrieve a list of articles.</p>   <p>By default it will return featured, published articles ordered by descending date of creation.</p>  ",
+        "parameters": [
+          {
+            "name": "query parameters",
+            "in": "query",
+            "description": "query parameters",
+            "schema": {
+              "$ref": "#/components/schemas/PostQuery"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Create post",
+        "description": "This endpoint allows the client to create a new post.",
+        "responses": {
+          "201": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreatePayload"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreatePayload"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/posts/{id}": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Get post by id",
+        "description": "Get post by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Edit post",
+        "description": "<p>This endpoint allows the client to edit a post.</p>  <p>It",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostPatchPayload"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/PostPatchPayload"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Delete post",
+        "description": "This endpoint allows the client to delete a post.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Post not found"
+          }
+        }
+      }
+    },
+    "/api/healthcheck/": {
+      "get": {
+        "tags": [
+          "Healthcheck"
+        ],
+        "summary": "Healthcheck",
+        "description": "Ensure that app is up and running",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "description": "@db.VarChar(75)"
+          },
+          "content": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "PaginationQuery": {
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1,
+            "description": "Pagination page"
+          },
+          "per_page": {
+            "type": "integer",
+            "maximum": 1000,
+            "minimum": 1,
+            "default": 50,
+            "description": "The number of items to return per page"
+          }
+        },
+        "type": "object"
+      },
+      "PostCreatePayload": {
+        "properties": {
+          "title": {
+            "minLength": 1,
+            "maxLength": 75,
+            "type": "string",
+            "default": "Post title"
+          },
+          "content": {
+            "minLength": 1,
+            "maxLength": 2500,
+            "type": "string",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "content"
+        ]
+      },
+      "PostQuery": {
+        "properties": {
+          "q": {
+            "minLength": 1,
+            "maxLength": 50,
+            "type": "string",
+            "description": "Search post by title. The search is case-insensitive. Search works by finding a substring in a title."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1,
+            "description": "Pagination page"
+          },
+          "per_page": {
+            "type": "integer",
+            "maximum": 1000,
+            "minimum": 1,
+            "default": 50,
+            "description": "The number of items to return per page"
+          }
+        },
+        "type": "object"
+      },
+      "PostPatchPayload": {
+        "properties": {
+          "title": {
+            "minLength": 1,
+            "maxLength": 75,
+            "type": "string",
+            "default": "Post title"
+          },
+          "content": {
+            "minLength": 1,
+            "maxLength": 2500,
+            "type": "string",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "content"
+        ]
+      }
+    }
+  }
+}

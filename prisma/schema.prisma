@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Generates the JSON schema to be used in OpenAPI docs generator
+generator jsonSchema {
+  provider                 = "prisma-json-schema-generator"
+  output                   = "../src/docs"
+  keepRelationFields       = false
+  keepRelationScalarFields = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String   @db.VarChar(75)
+  content   String   @db.Text()
+  createdAt DateTime @default(now())
+}
