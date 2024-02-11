@@ -11,12 +11,6 @@ const doc = {
     description: 'REST Api Documentation',
     version: '1.0.0'
   },
-  tags: [
-    {
-      name: 'Posts',
-      description: 'Posts related end-points'
-    }
-  ],
   components: {
     '@schemas': {
       ...prismaSchemas.definitions,

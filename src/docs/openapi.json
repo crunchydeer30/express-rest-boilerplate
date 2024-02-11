@@ -10,12 +10,6 @@
       "url": "http://localhost:8000/"
     }
   ],
-  "tags": [
-    {
-      "name": "Posts",
-      "description": "Posts related end-points"
-    }
-  ],
   "paths": {
     "/api/posts/": {
       "get": {
@@ -250,8 +244,7 @@
             "type": "string"
           },
           "title": {
-            "type": "string",
-            "description": "@db.VarChar(75)"
+            "type": "string"
           },
           "content": {
             "type": "string"
