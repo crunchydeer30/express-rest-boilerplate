@@ -14,10 +14,3 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-model Post {
-  id        String   @id @default(uuid())
-  title     String   @db.VarChar(75)
-  content   String   @db.Text()
-  createdAt DateTime @default(now())
-}
