@@ -7,7 +7,7 @@ export class PaginationQuery {
   @JSONSchema({
     type: 'integer',
     default: 1,
-    description: 'Pagination page'
+    description: 'Pagination page',
   })
   @IsOptional()
   @Type(() => Number)
@@ -18,7 +18,7 @@ export class PaginationQuery {
   @JSONSchema({
     type: 'integer',
     default: 50,
-    description: 'The number of items to return per page'
+    description: 'The number of items to return per page',
   })
   @IsOptional()
   @Type(() => Number)
@@ -36,7 +36,7 @@ export const buildPaginationQuery = (query: PaginationQuery) => {
 
   return {
     skip: (page - 1) * per_page,
-    take: per_page
+    take: per_page,
   };
 };
 

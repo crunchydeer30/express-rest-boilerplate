@@ -8,14 +8,14 @@ const doc = {
   info: {
     title: 'REST Api Documentation',
     description: 'REST Api Documentation',
-    version: '1.0.0'
+    version: '1.0.0',
   },
   components: {
     '@schemas': {
-      ...prismaSchemas.definitions
-    }
+      ...prismaSchemas.definitions,
+    },
   },
-  host: 'localhost:8000'
+  host: 'localhost:8000',
 };
 
 const outputFile = './openapi.json';

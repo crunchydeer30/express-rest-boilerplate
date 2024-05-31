@@ -3,7 +3,7 @@ import { validate as vldt, ValidationError } from 'class-validator';
 import {
   plainToInstance,
   ClassConstructor,
-  instanceToPlain
+  instanceToPlain,
 } from 'class-transformer';
 import { ErrorSchema } from './errorHandler';
 
@@ -20,7 +20,7 @@ export const validate =
       if (schema.body) {
         const transformedBody = plainToInstance(schema.body, req.body);
         const errors = await vldt(transformedBody as object, {
-          stopAtFirstError: true
+          stopAtFirstError: true,
         });
         if (errors.length) return res.status(400).json(parseErrors(errors));
         req.body = instanceToPlain(transformedBody);
@@ -53,6 +53,6 @@ const parseErrors = (errors: ValidationError[]): ErrorSchema => {
     : 'Validation failed';
   return {
     code: 400,
-    message: message.charAt(0).toUpperCase() + message.slice(1)
+    message: message.charAt(0).toUpperCase() + message.slice(1),
   };
 };

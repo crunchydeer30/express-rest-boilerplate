@@ -9,7 +9,7 @@ healthCheckRouter.get('/', (_req, res) => {
     #swagger.description = 'Ensure that app is up and running'
   */
   res.status(200).json({
-    message: 'Server is up and running'
+    message: 'Server is up and running',
   });
 });
 

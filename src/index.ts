@@ -1,10 +1,10 @@
 import app from './app';
-import config from './config';
+import env from './config/env';
 import docs from './docs';
 
-app.listen(config.PORT, () => {
+app.listen(env.PORT, () => {
   console.log(
-    `Server running at http://localhost:${config.PORT} in ${config.NODE_ENV} mode`
+    `Server running at http://localhost:${env.PORT} in ${env.NODE_ENV} mode`,
   );
-  docs(app, Number(config.PORT));
+  docs(app, Number(env.PORT));
 });

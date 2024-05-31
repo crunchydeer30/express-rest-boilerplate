@@ -13,9 +13,7 @@
   "paths": {
     "/api/healthcheck/": {
       "get": {
-        "tags": [
-          "Healthcheck"
-        ],
+        "tags": ["Healthcheck"],
         "summary": "Healthcheck",
         "description": "Ensure that app is up and running",
         "responses": {
