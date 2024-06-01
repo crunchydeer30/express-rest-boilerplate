@@ -5,13 +5,11 @@ dotenv.config();
 const envSchema = z.object({
   PORT: z.coerce.number(),
   NODE_ENV: z.enum(['development', 'production', 'test']),
-  DATABASE_URL: z.string(),
 });
 
 const env = {
   PORT: process.env.PORT,
   NODE_ENV: process.env.NODE_ENV,
-  DATABASE_URL: process.env.DATABASE_URL,
 };
 
 try {
