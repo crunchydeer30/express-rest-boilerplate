@@ -1,4 +1,6 @@
 import winston from 'winston';
+import { ElasticsearchTransport } from 'winston-elasticsearch';
+import env from './config/env';
 
 export const consoleLogger = winston.createLogger({
   format: winston.format.combine(
@@ -23,6 +25,12 @@ export const fileLogger = winston.createLogger({
       filename: 'logs/combined.log',
       level: 'info',
     }),
+    new ElasticsearchTransport({
+      clientOpts: {
+        node: env.ELASTICSEARCH_HOSTS || 'http://elasticsearch:9200',
+      },
+      indexPrefix: 'server-logs',
+    }),
   ],
 });
 
@@ -35,6 +43,12 @@ export const errorLogger = winston.createLogger({
     new winston.transports.File({
       filename: 'logs/error.log',
       format: winston.format.combine(winston.format.json()),
+    }),
+    new ElasticsearchTransport({
+      clientOpts: {
+        node: env.ELASTICSEARCH_HOSTS || 'http://elasticsearch:9200',
+      },
+      indexPrefix: 'server-errors',
     }),
   ],
 });

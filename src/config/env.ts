@@ -7,12 +7,14 @@ const envSchema = z.object({
   PORT: z.coerce.number(),
   NODE_ENV: z.enum(['development', 'production', 'test']),
   DATABASE_URL: z.string(),
+  ELASTICSEARCH_HOSTS: z.string().optional(),
 });
 
 const env = {
   PORT: process.env.PORT,
   NODE_ENV: process.env.NODE_ENV,
   DATABASE_URL: process.env.DATABASE_URL,
+  ELASTICSEARCH_HOSTS: process.env.ELASTICSEARCH_HOSTS,
 };
 
 try {

@@ -3,6 +3,7 @@ import swaggerUi from 'swagger-ui-express';
 import * as openapi from './openapi.json';
 import redoc from 'redoc-express';
 import env from '../config/env';
+import { consoleLogger as logger } from '../logger';
 
 // Generates redoc and swaggerUi pages
 
@@ -25,10 +26,8 @@ const docs = (app: Express, port: number) => {
     }),
   );
 
-  console.log(`Docs are available at http://localhost:${port}/api/docs`);
-  console.log(
-    `Swagger UI is available at http://localhost:${port}/api/docs/swagger`,
-  );
+  logger.info(`Docs: http://localhost:${port}/api/docs`);
+  logger.info(`Swagger UI: http://localhost:${port}/api/docs/swagger`);
 };
 
 export default docs;

@@ -12,6 +12,7 @@ services:
       NODE_ENV: production
       PORT: ${PORT}
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+      ELASTICSEARCH_HOSTS: ${ELASTICSEARCH_HOSTS}
     depends_on:
       - postgres
 
@@ -28,6 +29,25 @@ services:
       - 5433:5432
     volumes:
       - db-data:/var/lib/postgresql/data
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.14.0
+    ports:
+      - 9200:9200
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:8.14.0
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
 
 volumes:
   db-data: {}
