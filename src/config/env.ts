@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import dotenv from 'dotenv';
+import { consoleLogger } from '../logger';
 dotenv.config();
 
 const envSchema = z.object({
@@ -17,9 +18,9 @@ const env = {
 try {
   envSchema.parse(env);
 } catch (err) {
-  console.log('❌ Invalid environment variables');
+  console.error('❌ Invalid environment variables ❌');
   // @ts-expect-error error
-  console.error(err.message);
+  consoleLogger.error(err.message);
   process.exit(1);
 }
 

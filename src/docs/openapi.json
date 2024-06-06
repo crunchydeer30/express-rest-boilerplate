@@ -13,7 +13,9 @@
   "paths": {
     "/api/healthcheck/": {
       "get": {
-        "tags": ["Healthcheck"],
+        "tags": [
+          "Healthcheck"
+        ],
         "summary": "Healthcheck",
         "description": "Ensure that app is up and running",
         "responses": {
@@ -43,7 +45,23 @@
             "format": "date-time"
           }
         }
-      }
+      },
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "number",
+          "minimum": 1,
+          "default": 1
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 30
+        }
+      },
+      "additionalProperties": false,
+      "$schema": "http://json-schema.org/draft-07/schema#"
     }
   }
 }
