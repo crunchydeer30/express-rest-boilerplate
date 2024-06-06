@@ -1,7 +1,5 @@
 #BUILD STAGE
-
-
-FROM node:21.6.0-bookworm-slim AS build-stage
+FROM node:22.2.0-bookworm-slim AS build-stage
 
 WORKDIR /usr/src/app/
 
@@ -9,13 +7,12 @@ COPY . .
 
 RUN npm ci
 
+RUN npm run docs:generate
+
 RUN npm run build
 
-
 #RUN STAGE
-
-
-FROM node:21.6.0-bookworm-slim AS run-stage
+FROM node:22.2.0-bookworm-slim AS run-stage
 
 WORKDIR /usr/src/app/
 
@@ -29,7 +26,10 @@ RUN apt-get update -y && apt-get install -y openssl && apt-get install dumb-init
 
 RUN npm ci --only=production
 
-RUN npx prisma generate
+RUN mkdir logs
+RUN chown -R node:node logs
+
+# RUN npx prisma generate
 
 USER node
 
